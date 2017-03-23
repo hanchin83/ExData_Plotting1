@@ -17,17 +17,19 @@ dts4[,5] <- as.numeric(dts4[,5])
 dts4[,7] <- as.numeric(dts4[,7])
 dts4[,8] <- as.numeric(dts4[,8])
 
-first <- ggplot(dts4, aes(x=datetime, y=Global_active_power)) + geom_line() + labs(x="", y="Global Active Power")
-second <- ggplot(dts4, aes(x=datetime, y= Voltage)) + geom_line()
+scalelabel <-  scale_x_datetime(date_labels = "%A", date_breaks = "1 day")
+
+first <- ggplot(dts4, aes(x=datetime, y=Global_active_power)) + geom_line() + labs(x="", y="Global Active Power") + scalelabel
+second <- ggplot(dts4, aes(x=datetime, y= Voltage)) + geom_line() + scalelabel
 
 meter_first <- ggplot(dts4, aes(x=datetime, y=Sub_metering_1, col="Sub_metering_1")) + geom_line()
 meter_second <- geom_line(aes(x=datetime, y=Sub_metering_2, col="Sub_metering_2"))
 meter_third <- geom_line(aes(x=datetime, y=Sub_metering_3, col="Sub_metering_3")) 
 meter_label <- labs(x="", y="Energy sub metering")
 
-third <- meter_first + meter_second + meter_third + meter_label 
+third <- meter_first + meter_second + meter_third + meter_label + theme(legend.position = c(0.8, 0.8)) + scale_color_manual(values=c("black","red", "blue")) + scalelabel
 
-fourth <- ggplot(dts4, aes(x=datetime, y= Global_reactive_power)) + geom_line()
+fourth <- ggplot(dts4, aes(x=datetime, y= Global_reactive_power)) + geom_line() + scalelabel
 
 grid.arrange(first, second, third, fourth, nrow=2, ncol=2)
 

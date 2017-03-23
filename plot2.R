@@ -14,7 +14,8 @@ dts2$Global_active_power <- as.numeric(dts2$Global_active_power)
 
 main2 <- ggplot(dts2, aes(x=datetime, y=Global_active_power)) + geom_line() 
 label2 <- labs(x="", y = "Global Active Power (kilowatts)")
-plot2 <- main2 + label2
+scale2 <- scale_x_datetime(date_labels = "%A", date_breaks = "1 day")
+plot2 <- main2 + label2 + scale2 
 plot2
 
 dev.copy(png, "plot2.png")

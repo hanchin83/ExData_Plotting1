@@ -12,13 +12,15 @@ dts3 <- dts[dts$Date =="2007-02-01" | dts$Date=="2007-02-02",]
 dts3[,7] <- as.numeric(dts3[,7])
 dts3[,8] <- as.numeric(dts3[,8])
 
-first <- ggplot(dts3, aes(x=datetime, y=Sub_metering_1, col="Sub_metering_1")) + geom_line()
-second <- geom_line(aes(x=datetime, y=Sub_metering_2, col="Sub_metering_2"))
-third <- geom_line(aes(x=datetime, y=Sub_metering_3, col="Sub_metering_3")) 
+first <- ggplot(dts3, aes(x=datetime, y=Sub_metering_1, col="Sub_metering_1")) + geom_line() 
+second <- geom_line(aes(x=datetime, y=Sub_metering_2, col="Sub_metering_2")) 
+third <- geom_line(aes(x=datetime, y=Sub_metering_3, col="Sub_metering_3"))  
 
 label3 <- labs(x="", y="Energy sub metering")
 
-plot3 <- first + second + third + label3
+main3 <- first + second + third + label3 + theme(legend.position = c(0.8, 0.8)) + scale_color_manual(values=c("black","red", "blue"))
+scalelabel <-  scale_x_datetime(date_labels = "%A", date_breaks = "1 day")
+plot3 <- main3 + scalelabel
 plot3
 
 dev.copy(png, "plot3.png")
